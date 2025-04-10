@@ -1,6 +1,6 @@
 name: Autograding Tests
 'on':
-- push
+- workflow_dispatch
 - repository_dispatch
 permissions:
   checks: write
@@ -13,8 +13,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Run all python tests
-      id: run-all-python-tests
+    - name: TP 4 tests
+      id: tp-4-tests
       uses: classroom-resources/autograding-python-grader@v1
       with:
         timeout: 10
@@ -23,6 +23,6 @@ jobs:
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        RUN-ALL-PYTHON-TESTS_RESULTS: "${{steps.run-all-python-tests.outputs.result}}"
+        TP-4-TESTS_RESULTS: "${{steps.tp-4-tests.outputs.result}}"
       with:
-        runners: run-all-python-tests
+        runners: tp-4-tests
